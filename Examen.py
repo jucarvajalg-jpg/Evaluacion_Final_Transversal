@@ -217,5 +217,42 @@ while True:
             pre = input("Ingrese precio: ")
             uni = input("Ingrese unidades: ")
 
+            if not validar_codigo(cod, productos):
+                print("Código inválido o ya existe. Debe ser único y no vacío.")
+            elif not validador_nombre(nom):
+                print("Nombre inválido. No puede estar vacío.")
+            elif not validar_categoria(cat):
+                print("Categoría inválida. No puede estar vacía.")  
+            elif not validar_marca(mar):
+                print("Marca inválida. No puede estar vacía.")
+            elif not validar_peso(pes):
+                print("Peso inválido. Debe ser un número positivo.")
+            elif not validar_es_importado(imp):
+                print("Opción inválida para importado. Debe ser 's' o 'n'.")
+            elif not validar_es_para_cachorros(cac):
+                print("Opción inválida para cachorro. Debe ser 's' o 'n'.")
+            elif not validar_precio_val(pre):
+                print("Precio inválido. Debe ser un número entero positivo.")
+            elif not validar_unidades_val(uni):
+                print("Unidades inválidas. Debe ser un número entero positivo.")
+            else:
+                if agregar_productos(cod, nom, cat, mar, pes, imp, cac, pre, uni, productos, stock):
+                    print(f"Producto '{nom}' agregado exitosamente.")
+                else:
+                    print("Error al agregar el producto. El código ya existe.")
         
+        elif opc == 5:
+            cod_eliminar = input("Ingrese el código del producto a eliminar: ")
+            if eliminar_producto(cod_eliminar, productos, stock):
+                print(f"Producto con código '{cod_eliminar}' eliminado exitosamente.")
+            else:
+                print(f"No se encontró el producto con código '{cod_eliminar}'.")
 
+        elif opc == 6:
+            print("Saliendo del programa. ¡Hasta luego!")
+            break
+
+if __name__ == "__main__":
+    main()
+
+    
