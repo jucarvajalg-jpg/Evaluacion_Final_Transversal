@@ -68,7 +68,7 @@ def leer_opcion():
 def buscar_codigo(codigo, productos):  
     return codigo.upper() in [k.upper() for k in productos.keys()]
 
-def unidades_categorias(categorias, productos, stock):
+def unidades_categorias(categoria, productos, stock):
     cat_buscar = categoria.strip().lower()
     total_unidades = 0
 
@@ -97,7 +97,7 @@ def busqueda_precio(p_min, p_max, stock, productos):
 
     else:
         resultados.sort()
-        print("Los productos encontrados son: {resultados}")
+        print(f"Los productos encontrados son: {resultados}")
 
 
 def actualizar_precio(codigo, nuevo_precio, stock, productos):
@@ -145,16 +145,16 @@ def main():
         'M006': ['Cama Mediana', 'accesorio', 'CozyPet', 2.0, False, False]
     }
 
-stock = {
+    stock = {
     'M001': [32990, 12],
     'M002': [9990, 0],
     'M003': [5490, 25],
     'M004': [7990, 5],
     'M005': [11990, 7],
     'M006': [24990, 3]
-}
+    }
 
-while True:
+    while True:
         print("\n========== MENÚ PRINCIPAL ==========")
         print("1. Unidades por categoría")
         print("2. Búsqueda de productos por rango de precio")
@@ -219,7 +219,7 @@ while True:
 
             if not validar_codigo(cod, productos):
                 print("Código inválido o ya existe. Debe ser único y no vacío.")
-            elif not validador_nombre(nom):
+            elif not validar_nombre(nom):
                 print("Nombre inválido. No puede estar vacío.")
             elif not validar_categoria(cat):
                 print("Categoría inválida. No puede estar vacía.")  
@@ -236,7 +236,7 @@ while True:
             elif not validar_unidades_val(uni):
                 print("Unidades inválidas. Debe ser un número entero positivo.")
             else:
-                if agregar_productos(cod, nom, cat, mar, pes, imp, cac, pre, uni, productos, stock):
+                if agregar_producto(cod, nom, cat, mar, pes, imp, cac, pre, uni, productos, stock):
                     print(f"Producto '{nom}' agregado exitosamente.")
                 else:
                     print("Error al agregar el producto. El código ya existe.")
@@ -255,4 +255,5 @@ while True:
 if __name__ == "__main__":
     main()
 
-    
+
+
