@@ -8,9 +8,9 @@
 #----------------------------------------------------------------------
 
 def validar_codigo(codigo, productos):
-    if not codigo or codigo.scrip() == "":
+    if not codigo or codigo.strip() == "":
         return False
-    if codigo.strip().upper() in [k.upper( for k in productos.keys()]:
+    if codigo.strip().upper() in [k.upper() for k in productos.keys()]:
         return False
     return True
 
@@ -130,4 +130,92 @@ def eliminar_producto(codigo, productos, stock):
         del stock[key_s]
         return True
     return False
-    
+
+# ---------------------------------------------------------------------
+# 3. PROGRAMA PRINCIPAL
+# ---------------------------------------------------------------------
+
+def main():
+    productos = {
+        'M001': ['Alimento Premium', 'comida', 'DogPlus', 10.0, True, False],
+        'M002': ['Arena Aglomerante', 'higiene', 'CatClean', 0.0, False, False],
+        'M003': ['Snack Dental', 'snack', 'BiteJoy', 1.0, True, True],
+        'M004': ['Shampoo Suave', 'higiene', 'PetCare', 0.5, False, True],
+        'M005': ['Correa Nylon', 'accesorio', 'WalkPro', 0.3, True, False],
+        'M006': ['Cama Mediana', 'accesorio', 'CozyPet', 2.0, False, False]
+    }
+
+stock = {
+    'M001': [32990, 12],
+    'M002': [9990, 0],
+    'M003': [5490, 25],
+    'M004': [7990, 5],
+    'M005': [11990, 7],
+    'M006': [24990, 3]
+}
+
+while True:
+        print("\n========== MENÚ PRINCIPAL ==========")
+        print("1. Unidades por categoría")
+        print("2. Búsqueda de productos por rango de precio")
+        print("3. Actualizar precio de producto")
+        print("4. Agregar producto")
+        print("5. Eliminar producto")
+        print("6. Salir")
+        print("=====================================")
+
+        opc = leer_opcion()
+
+        if opc == -1:
+            print("Opción no válida. Por favor, intente de nuevo.")
+            continue
+            
+        if opc == 1:
+            categoria = input("Ingrese la categoría a buscar: ")
+            unidades_categorias(categoria, productos, stock)
+
+        elif opc == 2:
+            while True:
+                try:
+                    p_min = int(input("Ingrese el precio mínimo: "))
+                    p_max = int(input("Ingrese el precio máximo: "))
+                    if p_min >= 0 and p_max >= 0 and p_min <= p_max:
+                        break
+                    else:
+                        print("Debe ingresar valores validos (mínimo >= 0, máximo >= 0 y mínimo <= máximo). Intente de nuevo.")
+                except ValueError:
+                    print("Debe ingresar valores numéricos válidos. Intente de nuevo.")
+            busqueda_precio(p_min, p_max, stock, productos)
+
+        elif opc == 3:
+            while True:
+                cod = input("Ingrese el código del producto a actualizar: ")
+                nuevo_p_str = input("Ingrese el nuevo precio: ")
+
+                if validar_precio_val(nuevo_p_str):
+                    nuevo_p = int(nuevo_p_str)
+                    if actualizar_precio(cod, nuevo_p, stock, productos):
+                        print(f"Precio del producto con código '{cod}' actualizado a {nuevo_p}.")
+                    else:
+                        print(f"No se encontró el producto con código '{cod}'.")
+                else:
+                    print("Precio inválido. Debe ser un número entero positivo.")
+                
+                resp = input("¿Desea actualizar otro producto? (s/n): ").strip().lower()
+                if resp == 'n':
+                    break
+
+        elif opc == 4:
+        
+            cod = input("Ingrese código del producto: ")
+            nom = input("Ingrese nombre: ")
+            cat = input("Ingrese categoría: ")
+            mar = input("Ingrese marca: ")
+            pes = input("Ingrese peso (kg): ")
+            imp = input("¿Es importado? (s/n): ")
+            cac = input("¿Es para cachorro? (s/n): ")
+            pre = input("Ingrese precio: ")
+            uni = input("Ingrese unidades: ")
+
+        
+
