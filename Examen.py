@@ -71,14 +71,19 @@ def buscar_codigo(codigo, productos):
 def unidades_categorias(categoria, productos, stock):
     cat_buscar = categoria.strip().lower()
     total_unidades = 0
+    productos_encontrados = []
 
     for cod, info in productos.items():
         if info[1].lower() == cat_buscar:
             if cod in stock:
                 total_unidades += stock[cod][1]
+                productos_encontrados.append(info[0])
 
-    print(f"El total de unidades disponibles para la categoría '{categoria}' es: {total_unidades}")
-
+    print(f"El total de unidades disponibles para la categoría '{categoria}' es: {total_unidades} Unidades.")
+    if productos_encontrados:
+        print(f"Productos en esta categoría: {productos_encontrados}")
+    else:
+        print("No se encontraron productos detallados para esta categoría.")
 
 def busqueda_precio(p_min, p_max, stock, productos):
     resultados = []
